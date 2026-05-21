@@ -4,8 +4,7 @@
 ![YOLOv11](https://img.shields.io/badge/YOLO-v11-green)
 ![Status](https://img.shields.io/badge/Status-In_Development-yellow)
 
-> **Course:** CSE300 Mini Project (Batch M46)
-> **Institution:** SASTRA Deemed to be University, Srinivasa Ramanujan Center
+
 
 ## 📌 Abstract
 In solar power systems, Photovoltaic (PV) module hot spots dramatically lower efficiency and pose safety hazards. Traditional methods like I-V curve analysis, image-level classification, and simple bounding box detection often struggle to pinpoint the precise location and size of these faults.
