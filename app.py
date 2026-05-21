@@ -80,60 +80,28 @@ class CoordAtt(nn.Module):
 
 
 def patch_ultralytics():
-    """Inject CoordAtt into Ultralytics so FADNet checkpoints load cleanly."""
+    """Inject CoordAtt into Ultralytics in-memory only — no files written to disk."""
     try:
         import ultralytics.nn.modules as M
         import ultralytics.nn.tasks as T
-        import shutil
 
-        M.CoordAtt  = CoordAtt
-        T.CoordAtt  = CoordAtt
+        # Register CoordAtt on the live module objects (in-memory only)
+        M.CoordAtt = CoordAtt
+        T.CoordAtt = CoordAtt
 
+        # Create a fake sub-module so pickle/torch.load can resolve the class path
         fake_mod = type(sys)("ultralytics.nn.modules.coord_att")
         fake_mod.CoordAtt  = CoordAtt
         fake_mod.h_swish   = h_swish
         fake_mod.h_sigmoid = h_sigmoid
         sys.modules["ultralytics.nn.modules.coord_att"] = fake_mod
-        M.coord_att = fake_mod
 
-        d = pathlib.Path(M.__file__).parent
-        coord_att_src = textwrap.dedent("""\
-            import torch, torch.nn as nn
-            class h_sigmoid(nn.Module):
-                def forward(self, x): return nn.functional.relu6(x + 3) / 6
-            class h_swish(nn.Module):
-                def forward(self, x): return x * h_sigmoid()(x)
-            class CoordAtt(nn.Module):
-                def __init__(self, inp, oup=None, reduction=32):
-                    super().__init__()
-                    oup = oup or inp; mip = max(8, inp // reduction)
-                    self.conv1 = nn.Conv2d(inp, mip, 1, bias=False)
-                    self.bn1   = nn.BatchNorm2d(mip)
-                    self.act   = h_swish()
-                    self.conv_h = nn.Conv2d(mip, oup, 1, bias=False)
-                    self.conv_w = nn.Conv2d(mip, oup, 1, bias=False)
-                def forward(self, x):
-                    B,C,H,W = x.shape
-                    xh = x.mean(3, keepdim=True)
-                    xw = x.mean(2, keepdim=True).permute(0,1,3,2)
-                    y  = self.act(self.bn1(self.conv1(torch.cat([xh,xw],2))))
-                    xh, xw = torch.split(y, [H, W], 2)
-                    return x*torch.sigmoid(self.conv_h(xh))*torch.sigmoid(self.conv_w(xw.permute(0,1,3,2)))
-        """)
-        (d / "coord_att.py").write_text(coord_att_src)
+        # Also register under the tasks module's namespace
+        T.__dict__["CoordAtt"] = CoordAtt
 
-        tp = pathlib.Path(T.__file__).with_suffix(".py")
-        txt = tp.read_text()
-        if "coord_att" not in txt:
-            tp.write_text("from ultralytics.nn.modules.coord_att import CoordAtt\n" + txt)
-
-        shutil.rmtree(tp.parent / "__pycache__", ignore_errors=True)
-        shutil.rmtree(d / "__pycache__", ignore_errors=True)
-        return True, "CoordAtt patch applied ✓"
+        return True, "CoordAtt patch applied (in-memory) ✓"
     except Exception as e:
         return False, f"Patch failed: {e}"
-
-
 # Apply patch at startup
 _patch_ok, _patch_msg = patch_ultralytics()
 print(_patch_msg)
@@ -743,7 +711,7 @@ mean F1      = ~0.88
 if __name__ == "__main__":
     demo = build_ui()
     demo.launch(
-        server_name="0.0.0.0",
+        server_name="127.0.0.1",
         server_port=7860,
         share=False,
         show_error=True,
