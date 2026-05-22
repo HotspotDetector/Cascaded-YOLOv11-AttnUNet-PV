@@ -62,7 +62,8 @@ mean F1      ≈ 0.88
 Cascaded-YOLOv11-AttnUNet-PV/
 ├── app.py                        ← Gradio inference dashboard
 ├── requirements.txt              ← Python dependencies
-├── fadnet_training.ipynb         ← Full training notebook (Kaggle)
+├── fadnet_base.ipynb             ← Model generation & multi-stage training pipeline (Kaggle)
+├── fadnet_trainingv1.ipynb       ← Advanced inference push: Multi-Res WBF, SAHI, Soft-NMS (Kaggle)
 ├── checkpoints/
 │   ├── fadnet_finetune_best.pt   ← Primary model (recommended) [LFS]
 │   ├── fadnet_yolo_best.pt       ← YOLO backbone variant [LFS]
@@ -76,6 +77,8 @@ Cascaded-YOLOv11-AttnUNet-PV/
     ├── f1_optimal_curves.png
     └── perclass_thresh_heatmap.png
 ```
+ 
+> **Notebook guide:** Run `fadnet_base.ipynb` first to generate and export the trained model weights. Then use `fadnet_trainingv1.ipynb` for inference-only experiments (no retraining required).
  
 ---
  
