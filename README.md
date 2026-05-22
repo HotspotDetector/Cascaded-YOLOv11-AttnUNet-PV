@@ -173,7 +173,7 @@ Open `http://localhost:7860` in your browser. Upload a thermal PV image and clic
  
 ### 1. Dataset
  
-The **Thermal-H&C v1** dataset was pulled from Roboflow workspace `hotspotyolo`, project `thermal-h-c`, using the `yolov11` export format.
+The dataset was pulled from Roboflow workspace, using the `yolov11` export format.
  
 | Split | Images |
 |:---|:---:|
