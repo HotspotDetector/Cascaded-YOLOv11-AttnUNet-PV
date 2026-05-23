@@ -8,7 +8,7 @@ If you use FADNet in your research, please cite:
   title        = {FADNet: Fault-Aware Detection Network for Photovoltaic Thermal Imaging},
   year         = {2025},
   publisher    = {GitHub},
-  url          = {https://github.com/HotspotDetector/Cascaded-YOLOv11-AttnUNet-PV},
+  url          = {https://github.com/HotspotDetector/FADNet-Fault-Aware-Detection-Network-for-Photovoltaic-Thermal-Imaging},
   note         = {mAP@0.5 = 91.51\% on Thermal-H\&C dataset}
 }
 ```
