@@ -692,4 +692,7 @@ Ultralytics YOLOv11 (2024). https://docs.ultralytics.com/models/yolo11/
  
 MIT License — see [LICENSE](LICENSE) for details.
 This project is developed for academic purposes at SASTRA Deemed to be University.
+
+> **Note:** Model weights are not hosted in this repository due to file size constraints.  
+> Available on request — reach out via [LinkedIn](https://linkedin.com/in/ashvathram-b-59b762284).
  
