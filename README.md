@@ -7,8 +7,7 @@
 ![Status](https://img.shields.io/badge/Status-Complete-success)
 ![Platform](https://img.shields.io/badge/Platform-Kaggle%20Dual%20T4-informational)
  
-> **Course:** CSE300 Mini Project
-> **Institution:** SASTRA Deemed to be University
+
  
 ---
  
