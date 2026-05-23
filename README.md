@@ -6,6 +6,7 @@
 ![mAP@0.5](https://img.shields.io/badge/mAP%400.5-91.51%25-brightgreen)
 ![Status](https://img.shields.io/badge/Status-Complete-success)
 ![Platform](https://img.shields.io/badge/Platform-Kaggle%20Dual%20T4-informational)
+![Paper](https://img.shields.io/badge/Paper-Coming_Soon-lightgrey)
  
 
  
