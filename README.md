@@ -289,6 +289,7 @@ unet.eval()
  
 <details>
 <summary><b>Click to expand full development log (86% → 91.51%)</b></summary>
+ 
 ### Phase 1 — Architecture Research & HOTSPOT-YOLO Dissection
  
 Reverse-engineered Liu et al. (2024). Key finding: HOTSPOT-YOLO kept PANet + anchor-free head intact — only the backbone was swapped to EfficientNet-B0 with CBAM at FPN connection points. Initially misread as implying custom anchors — corrected after re-reading the architecture diagram.
